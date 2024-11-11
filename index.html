@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDF Viewer with Custom Text Box</title>
+    <title>PDF Viewer and Download</title>
     <style>
         body {
             margin: 0;
@@ -16,7 +16,6 @@
         #controls {
             padding: 20px;
             background: #f1f1f1;
-            z-index: 10;
         }
 
         #pdfFrame {
@@ -32,6 +31,7 @@
         <label for="pdfLink">Enter PDF URL:</label>
         <input type="text" id="pdfLink" placeholder="Enter URL of the PDF file">
         <button id="openButton" onclick="openPDF()">Open PDF</button>
+        <button id="downloadButton" onclick="downloadPDF()" disabled>Download PDF</button>
     </div>
 
     <iframe id="pdfFrame"></iframe>
@@ -48,6 +48,17 @@
                 button.innerHTML = 'View PDF';
                 button.disabled = false;
             }, 3000);
+
+            // Enable the download button
+            document.getElementById('downloadButton').disabled = false;
+        }
+
+        function downloadPDF() {
+            var pdfUrl = document.getElementById('pdfLink').value;
+            var a = document.createElement('a');
+            a.href = pdfUrl;
+            a.download = pdfUrl.split('/').pop();  // This sets the file name to the last part of the URL
+            a.click();
         }
     </script>
 
