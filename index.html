@@ -4,22 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PDF Viewer with Custom Text Box</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        #controls {
+            padding: 20px;
+            background: #f1f1f1;
+            z-index: 10;
+        }
+
+        #pdfFrame {
+            flex-grow: 1;
+            width: 100%;
+            border: none;
+        }
+    </style>
 </head>
 <body>
-    <h1>Open PDF from a Link</h1>
-    
-    <label for="pdfLink">Enter PDF URL:</label>
-    <input type="text" id="pdfLink" placeholder="Enter URL of the PDF file">
-    
-    <button onclick="openPDF()">Open PDF</button>
-    
-    <iframe id="pdfFrame" width="600" height="400" style="border:none;"></iframe>
+
+    <div id="controls">
+        <label for="pdfLink">Enter PDF URL:</label>
+        <input type="text" id="pdfLink" placeholder="Enter URL of the PDF file">
+        <button id="openButton" onclick="openPDF()">Open PDF</button>
+    </div>
+
+    <iframe id="pdfFrame"></iframe>
 
     <script>
         function openPDF() {
             var pdfUrl = document.getElementById('pdfLink').value;
             document.getElementById('pdfFrame').src = pdfUrl;
+            var button = document.getElementById('openButton');
+            button.innerHTML = 'Loading...';
+            button.disabled = true;
+
+            setTimeout(function() {
+                button.innerHTML = 'View PDF';
+                button.disabled = false;
+            }, 3000);
         }
     </script>
+
 </body>
 </html>
